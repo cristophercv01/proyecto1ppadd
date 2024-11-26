@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Portada
-st.image('fondoadsl.jpg', use_container_width=True)
+## st.image('fondoadsl.jpg', use_container_width=True)
 
 # Título
 st.title('Comparación de Pronóstico de Tendencia vs El Valor Real de las Acciones')
