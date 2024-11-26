@@ -2,29 +2,29 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# Cargar la imagen de portada
+# Portada
 st.image('fondoadsl.jpg', use_container_width=True)
 
-# Título de la aplicación
+# Título
 st.title('Comparación de Pronóstico de Tendencia vs El Valor Real de las Acciones')
 
-# Instrucciones para el usuario
+# Intro
 st.write("""
     Con esta aplicación logramos comparar datos reales de las acciones con los pronósticos generados por el modelo ARIMA.
     Utiliza los controles para seleccionar las acciones, el rango de fechas y si quieres mostrar los pronósticos. Este trabajo fue hecho por el equipo del Atlético de San Luis de la clase de Programación para Análisis de Datos.
 """)
 
-# Lista de acciones disponibles para seleccionar
+# Lista de acciones
 acciones = ['AAPL', 'MSFT', 'GOOGL', 'AMZN']
 
-# Valor predeterminado: solo GOOGL
+# accion predeterminada: solo GOOGL
 acciones_seleccionadas = st.multiselect('Selecciona las acciones a mostrar:', acciones, default=['GOOGL'])
 
-# Rango de fechas predeterminado: desde el 2023-01-05 hasta el 2024-11-25
+# fechas predeterminadas: desde el 2023-01-05 hasta el 2024-11-25
 fecha_inicio = st.date_input('Fecha de inicio:', value=pd.to_datetime('2023-01-05'))
 fecha_fin = st.date_input('Fecha de fin:', value=pd.to_datetime('2024-11-25'))
 
-# Cargar los archivos CSV
+# csv's
 df_real = pd.read_csv('df_real.csv', index_col=0, parse_dates=True)
 df_unido = pd.read_csv('df_unido.csv', index_col=0, parse_dates=True)
 
@@ -35,10 +35,10 @@ df_unido_filtrado = df_unido[acciones_seleccionadas]
 df_real_filtrado = df_real_filtrado.loc[fecha_inicio:fecha_fin]
 df_unido_filtrado = df_unido_filtrado.loc[fecha_inicio:fecha_fin]
 
-# Checkbox para decidir si mostrar la línea de pronóstico
+# Checkbox
 mostrar_pronostico = st.checkbox('Mostrar Pronóstico', value=True)
 
-# Calcular el aumento o disminución del valor de las acciones seleccionadas
+# Calcular el aumento o disminución
 st.subheader("Aumento o disminución del valor de las acciones seleccionadas")
 for accion in acciones_seleccionadas:
     valor_inicio = df_real_filtrado[accion].iloc[0]
@@ -51,7 +51,7 @@ for accion in acciones_seleccionadas:
 # Graficar las series de tiempo de los datos reales y los pronósticos
 fig, ax = plt.subplots(figsize=(12, 8))
 
-# Graficar las series reales
+# Graficar las series reales2
 for accion in acciones_seleccionadas:
     ax.plot(df_real_filtrado.index, df_real_filtrado[accion], label=f'Real {accion}')
 
@@ -60,7 +60,7 @@ if mostrar_pronostico:
     for accion in acciones_seleccionadas:
         ax.plot(df_unido_filtrado.index, df_unido_filtrado[accion], label=f'Pronóstico {accion}', linestyle='--')
 
-# Personalización de la gráfica
+#grafica
 ax.set_title(f'Comparación de Pronóstico vs Real (Del {fecha_inicio} al {fecha_fin})', fontsize=14)
 ax.set_xlabel('Fecha', fontsize=12)
 ax.set_ylabel('Precio de las Acciones', fontsize=12)
@@ -69,5 +69,5 @@ ax.grid(True, linestyle='--', alpha=0.6)
 plt.xticks(rotation=45)  
 plt.tight_layout()
 
-# Mostrar el gráfico en Streamlit
+#show en streamlit
 st.pyplot(fig)
