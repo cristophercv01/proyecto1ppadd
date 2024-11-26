@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Cargar la imagen de portada
-st.image('/Users/cristophercoronavelasco/Desktop/ProyectoPPAD/fondoadsl.jpg', use_container_width=True)
+st.image('fondoadsl.jpg', use_container_width=True)
 
 # Título de la aplicación
 st.title('Comparación de Pronóstico de Tendencia vs El Valor Real de las Acciones')
@@ -25,8 +25,8 @@ fecha_inicio = st.date_input('Fecha de inicio:', value=pd.to_datetime('2023-01-0
 fecha_fin = st.date_input('Fecha de fin:', value=pd.to_datetime('2024-11-25'))
 
 # Cargar los archivos CSV
-df_real = pd.read_csv('/Users/cristophercoronavelasco/Desktop/ProyectoPPAD/df_real.csv', index_col=0, parse_dates=True)
-df_unido = pd.read_csv('/Users/cristophercoronavelasco/Desktop/ProyectoPPAD/df_unido.csv', index_col=0, parse_dates=True)
+df_real = pd.read_csv('df_real.csv', index_col=0, parse_dates=True)
+df_unido = pd.read_csv('df_unido.csv', index_col=0, parse_dates=True)
 
 # Filtrar los datos de df_real y df_unido para las acciones seleccionadas y el rango de fechas
 df_real_filtrado = df_real[acciones_seleccionadas]
